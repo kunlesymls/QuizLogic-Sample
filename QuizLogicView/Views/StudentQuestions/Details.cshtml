@@ -1,0 +1,89 @@
+﻿@model QuizLogic.Models.StudentQuestion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>StudentQuestion</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StudentId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StudentId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QuestionNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionHint)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QuestionHint)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.QuestionTypeName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.QuestionTypeName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StudentResponse)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StudentResponse.StudentResponseId)
+        </dd>
+    </dl>
+</div>
+@if (Model.QuestionTypeName.Equals(QuestionType.Single_Choice.ToString()))
+{
+    @foreach (var item in Model.StudentAnswers)
+    {
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" /> @item.AnswerValue
+            </label>
+        </div>
+    }
+}
+else if (Model.QuestionTypeName.Equals(QuestionType.Multi_Choice.ToString()))
+{
+    foreach (var item in Model.StudentAnswers)
+    {
+        <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" /> @item.AnswerValue
+            </label>
+        </div>
+    }
+}
+else
+{
+    foreach (var item in Model.StudentAnswers)
+    {
+        <div class="form-group">
+            <label class="form-label">@Model.Question</label>
+            <input class="form-control" type="text" />
+
+        </div>
+    }
+}
+
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.StudentQuestionId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
